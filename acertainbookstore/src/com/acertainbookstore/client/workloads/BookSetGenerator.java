@@ -1,5 +1,6 @@
 package com.acertainbookstore.client.workloads;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.acertainbookstore.business.StockBook;
@@ -8,7 +9,7 @@ import com.acertainbookstore.business.StockBook;
  * Helper class to generate stockbooks and isbns modelled similar to Random
  * class
  */
-public class BookSetGenerator { // test
+public class BookSetGenerator { 
 
 	public BookSetGenerator() {
 		// TODO Auto-generated constructor stub
@@ -21,6 +22,14 @@ public class BookSetGenerator { // test
 	 * @return
 	 */
 	public Set<Integer> sampleFromSetOfISBNs(Set<Integer> isbns, int num) {
+		
+		Set<Integer> randomIsbns = new HashSet<Integer>();
+		
+		for (int i = 0; i < num; i++){
+			
+			
+		}
+		
 		return null;
 	}
 
