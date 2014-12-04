@@ -18,34 +18,32 @@ public class BookSetGenerator {
 
 	/**
 	 * Returns num randomly selected isbns from the input set
-	 * The way this is currently implemented, the same isbn can be selected multiple times. 
+	 * 
 	 * @param num
 	 * @return
 	 */
 
 	public Set<Integer> sampleFromSetOfISBNs(Set<Integer> isbns, int num) { 
-		
-		Set<Integer> randomIsbns = new HashSet<Integer>();
-		
-		Random randomNumber = new Random();
-		
-		for (int i = 0; i < num; i++){
-			
-			int random = randomNumber.nextInt(isbns.size());
-			int j = 0;
-			
-			for (Integer isbn: isbns){
-				
-				if (j == random){
 					
-					randomIsbns.add(isbn);
-				}
+		Set<Integer> randomIsbns = new HashSet<Integer>();	
+		
+		int i = 0;
+		
+		/*  Set are not ordered so the first num will be random.
+		 *  This for loop stops adding to the return set once i == the number desired. 
+		 * 
+		 */
+			
+		for (Integer isbn: isbns){ 
+			
+			if (i == num){
 				
-				else {
-					
-					j++;
-				}
+				break;
 			}
+					
+			randomIsbns.add(isbn);
+
+			i++;
 		}
 		
 		return randomIsbns;
