@@ -4,18 +4,22 @@
 package com.acertainbookstore.client.workloads;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import com.acertainbookstore.business.CertainBookStore;
+import com.acertainbookstore.business.ImmutableStockBook;
 import com.acertainbookstore.client.BookStoreHTTPProxy;
 import com.acertainbookstore.client.StockManagerHTTPProxy;
 import com.acertainbookstore.interfaces.BookStore;
 import com.acertainbookstore.interfaces.StockManager;
 import com.acertainbookstore.utils.BookStoreConstants;
 import com.acertainbookstore.utils.BookStoreException;
+import com.acertainbookstore.business.StockBook;
 
 /**
  * 
@@ -29,6 +33,7 @@ public class CertainWorkload {
 	/**
 	 * @param args
 	 */
+	
 	public static void main(String[] args) throws Exception {
 		int numConcurrentWorkloadThreads = 10;
 		String serverAddress = "http://localhost:8081";
@@ -99,11 +104,35 @@ public class CertainWorkload {
 	 * 
 	 * Ignores the serverAddress if its a localTest
 	 * 
+	 * stockManager adds 100 copies of 4 books and 300 copies of a book that has a longer title. 
+	 * 
 	 */
 	public static void initializeBookStoreData(BookStore bookStore,
 			StockManager stockManager) throws BookStoreException {
+		
+		Set<StockBook> booksInStock = new HashSet<StockBook>();
+		
+		StockBook testOfThrones = new ImmutableStockBook(3044560, "Test of Thrones",
+				"George RR Testin'", (float) 10, 100, 0, 0, 0, false);
+		booksInStock.add(testOfThrones);
+		
+		StockBook jkUnit =  new ImmutableStockBook(3044561, "Harry Potter and JUnit",
+				"JK Unit", (float) 10, 100, 0, 0, 0, false);
+		booksInStock.add(jkUnit);
+		
+		StockBook interstellar =  new ImmutableStockBook(3044562, "Intetstellar",
+				"So great", (float) 10, 100, 0, 0, 0, false);
+		booksInStock.add(interstellar);
+		
+		StockBook blahBook =  new ImmutableStockBook(3044563, "Blah",
+				"Blah Author", (float) 10, 100, 0, 0, 0, false);
+		booksInStock.add(blahBook);
+		
+		StockBook longTitleBook =  new ImmutableStockBook(3044563, "This Book Has a Really Really Long Title For Testing Purposes and Such",
+				"Blah Author", (float) 10, 300, 0, 0, 0, false);
+		booksInStock.add(longTitleBook);
 
-		// TODO: You should initialize data for your bookstore here
-
+		
+		stockManager.addBooks(booksInStock);
 	}
 }
