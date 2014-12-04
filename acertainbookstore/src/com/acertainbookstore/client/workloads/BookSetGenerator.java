@@ -18,12 +18,12 @@ public class BookSetGenerator {
 
 	/**
 	 * Returns num randomly selected isbns from the input set
-	 * 
+	 * The way this is currently implemented, the same isbn can be selected multiple times. 
 	 * @param num
 	 * @return
 	 */
 
-	public Set<Integer> sampleFromSetOfISBNs(Set<Integer> isbns, int num) {
+	public Set<Integer> sampleFromSetOfISBNs(Set<Integer> isbns, int num) { 
 		
 		Set<Integer> randomIsbns = new HashSet<Integer>();
 		
@@ -39,7 +39,6 @@ public class BookSetGenerator {
 				if (j == random){
 					
 					randomIsbns.add(isbn);
-					break;
 				}
 				
 				else {
@@ -59,6 +58,8 @@ public class BookSetGenerator {
 	 * @return
 	 */
 	public Set<StockBook> nextSetOfStockBooks(int num) {
+		// I do not understand what this is asking of us...
+		
 		return null;
 	}
 
