@@ -1,6 +1,7 @@
 package com.acertainbookstore.client.workloads;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import com.acertainbookstore.business.StockBook;
@@ -21,16 +22,34 @@ public class BookSetGenerator {
 	 * @param num
 	 * @return
 	 */
+
 	public Set<Integer> sampleFromSetOfISBNs(Set<Integer> isbns, int num) {
 		
 		Set<Integer> randomIsbns = new HashSet<Integer>();
 		
+		Random randomNumber = new Random();
+		
 		for (int i = 0; i < num; i++){
 			
+			int random = randomNumber.nextInt(isbns.size());
+			int j = 0;
 			
+			for (Integer isbn: isbns){
+				
+				if (j == random){
+					
+					randomIsbns.add(isbn);
+					break;
+				}
+				
+				else {
+					
+					j++;
+				}
+			}
 		}
 		
-		return null;
+		return randomIsbns;
 	}
 
 	/**
