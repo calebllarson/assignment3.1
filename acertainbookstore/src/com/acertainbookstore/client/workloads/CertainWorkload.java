@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -98,21 +100,20 @@ public class CertainWorkload {
 	public static void reportMetric(List<WorkerRunResult> workerRunResults) {
 		// TODO: You should aggregate metrics and output them for plotting here
 		
-		/* Not sure what needs to be done right now. */
+		int totalTime = 0;
+		int totalSuccessfulInteractions = 0;
 		
-		CertainBookStore store = new CertainBookStore();
-		BookStore bookStore = store;
-		StockManager stockManager = store;
-		
-		try {
-			initializeBookStoreData(bookStore, stockManager);
-		} catch (BookStoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (WorkerRunResult workerRunResult: workerRunResults){
+			
+			totalTime += workerRunResult.getElapsedTimeInNanoSecs();
+			totalSuccessfulInteractions += workerRunResult.getSuccessfulInteractions();
 		}
 		
+		int latency = totalTime/workerRunResults.size(); // latency = average time to generate a response
+		int throughput = totalSuccessfulInteractions/totalTime; // throughput = average successful interactions per time period
 		
-		
+		System.out.println(latency);
+		System.out.println(throughput);
 	}
 	
 

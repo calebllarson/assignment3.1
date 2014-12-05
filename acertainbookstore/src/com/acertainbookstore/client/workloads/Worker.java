@@ -3,6 +3,7 @@
  */
 package com.acertainbookstore.client.workloads;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -14,6 +15,7 @@ import com.acertainbookstore.business.StockBook;
 import com.acertainbookstore.interfaces.BookStore;
 import com.acertainbookstore.interfaces.StockManager;
 import com.acertainbookstore.utils.BookStoreException;
+import com.sun.tools.javac.util.List;
 
 
 /**
@@ -147,7 +149,7 @@ n		of found in the list returned by getBooks. */
 	private void runFrequentStockManagerInteraction(int k, StockManager stockManager) throws BookStoreException {
 		
 		@SuppressWarnings("unchecked")
-		Set<StockBook> allStockBooks = (Set<StockBook>) stockManager.getBooks();
+		java.util.List<StockBook> allStockBooks = stockManager.getBooks();
 		Set<StockBook> toHaveCopiesAdded = new HashSet<StockBook>(); // holds books with k lowerst copies
 		
 		// findLowestCopy return the book with the lowest numberof copies
@@ -165,7 +167,7 @@ n		of found in the list returned by getBooks. */
 			*/
 			else {  
 				
-				Set<StockBook> withOutLowest = new HashSet<StockBook>();
+				java.util.List<StockBook> withOutLowest = new ArrayList<StockBook>();
 				withOutLowest = allStockBooks;
 				
 				for (StockBook stockBook: toHaveCopiesAdded){
@@ -190,7 +192,7 @@ n		of found in the list returned by getBooks. */
 	
 	/* This method returns the book with the lowest number of copies and removes it from the set.*/
 	
-	private StockBook findLowestCopy(Set<StockBook> setOfStockBooks){
+	private StockBook findLowestCopy(java.util.List<StockBook> setOfStockBooks){
 		
 		int minimumCopies = 0;
 		StockBook bookWithMinimumCopies = null;
