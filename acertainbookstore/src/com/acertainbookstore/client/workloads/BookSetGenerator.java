@@ -63,7 +63,7 @@ public class BookSetGenerator {
 	 */
 	public Set<StockBook> nextSetOfStockBooks(StockManager stockManager, int num) {
 		
-		Set<StockBook> randomStockBooks = 	new HashSet<StockBook>();
+		Set<ImmutableStockBook> randomStockBooks = 	new HashSet<ImmutableStockBook>();
 		ArrayList<StockBook> allStockBooks =  new ArrayList<StockBook>();
 		
 		try {
@@ -74,8 +74,7 @@ public class BookSetGenerator {
 		}
 		
 		for (int i = 0; i < num; i++){
-			
-			randomStockBooks.add(allStockBooks.get(i));
+			randomStockBooks.add((ImmutableStockBook) allStockBooks.get(i));
 			
 		}
 		
