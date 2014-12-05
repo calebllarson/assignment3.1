@@ -9,7 +9,6 @@ import com.acertainbookstore.business.ImmutableStockBook;
 import com.acertainbookstore.business.StockBook;
 import com.acertainbookstore.interfaces.StockManager;
 import com.acertainbookstore.utils.BookStoreException;
-import com.sun.tools.javac.util.List;
 
 /**
  * Helper class to generate stockbooks and isbns modelled similar to Random
@@ -64,7 +63,7 @@ public class BookSetGenerator {
 	 */
 	public Set<StockBook> nextSetOfStockBooks(StockManager stockManager, int num) {
 		
-		Set<StockBook> randomStockBooks = 	new HashSet<StockBook>();
+		Set<ImmutableStockBook> randomStockBooks = 	new HashSet<ImmutableStockBook>();
 		ArrayList<StockBook> allStockBooks =  new ArrayList<StockBook>();
 		
 		try {
@@ -75,8 +74,7 @@ public class BookSetGenerator {
 		}
 		
 		for (int i = 0; i < num; i++){
-			
-			randomStockBooks.add(allStockBooks.get(i));
+			randomStockBooks.add((ImmutableStockBook) allStockBooks.get(i));
 			
 		}
 		

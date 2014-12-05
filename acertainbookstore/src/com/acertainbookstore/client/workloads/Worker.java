@@ -5,6 +5,7 @@ package com.acertainbookstore.client.workloads;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -108,14 +109,12 @@ public class Worker implements Callable<WorkerRunResult> {
 	 * @throws BookStoreException
 	 */
 	private void runRareStockManagerInteraction() throws BookStoreException {
-		
+		//The list of books already in the store.
+		List<StockBook> inTheStore = configuration.getStockManager().getBooks();
+		//The list of randomly created set of books.
 		Set<StockBook> nextSetOfStockBooks = configuration.getBookSetGenerator().nextSetOfStockBooks(configuration.getStockManager(), configuration.getNumBooksToAdd());
-	
-		/* I'm confused here. In the assignment it says "It then checks if the set of ISBNs is in the
-		list of books fetched. I don't understand what set of ISBNS's the are talking about. I just created
-		a random one here (isbns) and implemented the logic explained in the assignment. */
 		
-		Set<Integer> isbns = new HashSet<Integer>();
+		// The boocks which must be added. 
 		Set<StockBook> toBeAdded = new HashSet<StockBook>(); 
 		
 		/* This for loop is implementing It then checks if the set of ISBNs is in the
@@ -124,7 +123,7 @@ n		of found in the list returned by getBooks. */
 		
 		for (StockBook stockBook: nextSetOfStockBooks){
 			
-			if (!isbns.contains(stockBook.getISBN())){
+			if (!inTheStore.contains(stockBook.getISBN())){
 				
 				toBeAdded.add(stockBook);
 			}
