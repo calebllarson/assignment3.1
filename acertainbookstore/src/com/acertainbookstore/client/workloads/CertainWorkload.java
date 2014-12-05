@@ -97,7 +97,24 @@ public class CertainWorkload {
 	 */
 	public static void reportMetric(List<WorkerRunResult> workerRunResults) {
 		// TODO: You should aggregate metrics and output them for plotting here
+		
+		/* Not sure what needs to be done right now. */
+		
+		CertainBookStore store = new CertainBookStore();
+		BookStore bookStore = store;
+		StockManager stockManager = store;
+		
+		try {
+			initializeBookStoreData(bookStore, stockManager);
+		} catch (BookStoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
+	
 
 	/**
 	 * Generate the data in bookstore before the workload interactions are run

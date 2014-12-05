@@ -3,12 +3,9 @@
  */
 package com.acertainbookstore.client.workloads;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.Callable;
 
 import com.acertainbookstore.business.Book;
@@ -17,7 +14,7 @@ import com.acertainbookstore.business.StockBook;
 import com.acertainbookstore.interfaces.BookStore;
 import com.acertainbookstore.interfaces.StockManager;
 import com.acertainbookstore.utils.BookStoreException;
-import com.sun.tools.javac.util.List;
+
 
 /**
  * 
@@ -253,5 +250,4 @@ n		of found in the list returned by getBooks. */
 		
 		bookStore.buyBooks(bookCopyToBuy);
 	}
-
 }
