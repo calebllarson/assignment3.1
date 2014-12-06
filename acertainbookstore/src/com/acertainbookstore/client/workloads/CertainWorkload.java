@@ -100,20 +100,22 @@ public class CertainWorkload {
 	public static void reportMetric(List<WorkerRunResult> workerRunResults) {
 		// TODO: You should aggregate metrics and output them for plotting here
 		
-		int totalTime = 0;
-		int totalSuccessfulInteractions = 0;
+		double totalTime = 0;
+		double totalSuccessfulInteractions = 0;
 		
 		for (WorkerRunResult workerRunResult: workerRunResults){
-			
 			totalTime += workerRunResult.getElapsedTimeInNanoSecs();
 			totalSuccessfulInteractions += workerRunResult.getSuccessfulInteractions();
 		}
 		
-		int latency = totalTime/workerRunResults.size(); // latency = average time to generate a response
-		int throughput = totalSuccessfulInteractions/totalTime; // throughput = average successful interactions per time period
-		
-		System.out.println(latency);
-		System.out.println(throughput);
+		double latency = totalTime/workerRunResults.size(); // latency = average time to generate a response
+		double throughput = totalSuccessfulInteractions/totalTime; // throughput = average successful interactions per time period
+		System.out.println("Please notice, the time is in ns! Factor 1ns = 1,0*10^-9 s");
+		System.out.println("total time "+totalTime);
+		System.out.println("totalSuccessfulInteractions" + totalSuccessfulInteractions);
+		System.out.println("workerRundResults "+workerRunResults.size());
+		System.out.println("Latency "+latency);
+		System.out.println("Throughput "+throughput);
 	}
 	
 
