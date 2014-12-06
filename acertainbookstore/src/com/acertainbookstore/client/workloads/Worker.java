@@ -4,6 +4,8 @@
 package com.acertainbookstore.client.workloads;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -12,6 +14,7 @@ import java.util.concurrent.Callable;
 
 import com.acertainbookstore.business.Book;
 import com.acertainbookstore.business.BookCopy;
+import com.acertainbookstore.business.ImmutableStockBook;
 import com.acertainbookstore.business.StockBook;
 import com.acertainbookstore.interfaces.BookStore;
 import com.acertainbookstore.interfaces.StockManager;
@@ -111,7 +114,7 @@ public class Worker implements Callable<WorkerRunResult> {
 		//The list of books already in the store.
 		List<StockBook> inTheStore = configuration.getStockManager().getBooks();
 		//The list of randomly created set of books.
-		Set<StockBook> nextSetOfStockBooks = configuration.getBookSetGenerator().nextSetOfStockBooks(configuration.getStockManager(), configuration.getNumBooksToAdd());
+		Set<ImmutableStockBook> nextSetOfStockBooks = configuration.getBookSetGenerator().nextSetOfStockBooks(configuration.getStockManager(), configuration.getNumBooksToAdd());
 		
 		// The boocks which must be added. 
 		Set<StockBook> toBeAdded = new HashSet<StockBook>(); 
@@ -139,42 +142,25 @@ n		of found in the list returned by getBooks. */
 	 * 
 	 */
 	
-	/* Sorry, this method is really complicated. I'm sure there is an easier way to do this, but I couldn't 
-	 * think of one quickly. This method find the books with the k lowest copes, and then copies them the number
-	 * of times specified in Workload Configuration. 
-	 */
 	
 	private void runFrequentStockManagerInteraction(int k, StockManager stockManager) throws BookStoreException {
 		
-		@SuppressWarnings("unchecked")
-		java.util.List<StockBook> allStockBooks = stockManager.getBooks();
+		List<StockBook> allStockBooks = stockManager.getBooks();
+		Collections.sort(allStockBooks, new Comparator<StockBook>() {
+			
+			@Override
+			public int compare(StockBook o1, StockBook o2) {
+				// with this compare we get a list with the book with the lowest number of
+				// copies as first book in the list
+				return o1.getNumCopies()-o2.getNumCopies();
+			}
+		});
 		Set<StockBook> toHaveCopiesAdded = new HashSet<StockBook>(); // holds books with k lowerst copies
 		
-		// findLowestCopy return the book with the lowest numberof copies
+		// select the k books with smallest quantities in stock, add it to the toHaveCopiesAdded list
 		
-		for (int i = 0; i < k; i++){
-			
-			if (i == 0){ // The first iteration, the book with the lowest number of copies is found
-				
-				toHaveCopiesAdded.add(findLowestCopy(allStockBooks));
-			}
-			
-			/* If it is not the first iteration, the book with the lowest number of copies will be that found in the first iteration.
-			   This book must be removed from consideration. withOutLowest contains the number of books that 
-			   have not yet been found to be the lowest, and then findLowestCopy is called on that. 
-			*/
-			else {  
-				
-				java.util.List<StockBook> withOutLowest = new ArrayList<StockBook>();
-				withOutLowest = allStockBooks;
-				
-				for (StockBook stockBook: toHaveCopiesAdded){
-					
-					withOutLowest.remove(stockBook);
-				}
-				
-				toHaveCopiesAdded.add(findLowestCopy(withOutLowest));
-			}
+		for (int i = 0; i < k-1; i++){
+			toHaveCopiesAdded.add(allStockBooks.get(i));
 		}
 		
 		Set<BookCopy> copies = new HashSet<BookCopy>(); // This is what the StockManager will copy. 
@@ -188,37 +174,6 @@ n		of found in the list returned by getBooks. */
 		stockManager.addCopies(copies);
 	}
 	
-	/* This method returns the book with the lowest number of copies and removes it from the set.*/
-	
-	private StockBook findLowestCopy(java.util.List<StockBook> setOfStockBooks){
-		
-		int minimumCopies = 0;
-		StockBook bookWithMinimumCopies = null;
-		int i = 0;
-		
-		for (StockBook stockBook: setOfStockBooks){
-			
-			if (i == 0){
-				
-				minimumCopies = stockBook.getNumCopies();
-				bookWithMinimumCopies = stockBook;
-			}
-			
-			else if (stockBook.getNumCopies() <= minimumCopies){
-				
-				minimumCopies = stockBook.getNumCopies();
-				bookWithMinimumCopies = stockBook;
-			}
-			
-			else {
-				
-				continue;
-			}
-		}
-			
-		return bookWithMinimumCopies;
-	}
-
 	/**
 	 * Runs the customer interaction
 	 * 

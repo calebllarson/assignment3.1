@@ -61,7 +61,7 @@ public class BookSetGenerator {
 	 * @param num
 	 * @return
 	 */
-	public Set<StockBook> nextSetOfStockBooks(StockManager stockManager, int num) {
+	public Set<ImmutableStockBook> nextSetOfStockBooks(StockManager stockManager, int num) {
 		
 		Set<ImmutableStockBook> randomStockBooks = 	new HashSet<ImmutableStockBook>();
 		ArrayList<StockBook> allStockBooks =  new ArrayList<StockBook>();
@@ -73,12 +73,12 @@ public class BookSetGenerator {
 			e.printStackTrace();
 		}
 		
-		for (int i = 0; i < num; i++){
+		for (int i = 0; i < num-1; i++){
 			randomStockBooks.add((ImmutableStockBook) allStockBooks.get(i));
 			
 		}
 		
-		return null;
+		return randomStockBooks;
 	}
 
 }
