@@ -200,7 +200,7 @@ n		of found in the list returned by getBooks. */
 		
 		for (Integer isbn: toBuyIsbn){
 			
-			bookCopyToBuy.add(new BookCopy(isbn, configuration.getNumBooksToBuy()));
+			bookCopyToBuy.add(new BookCopy(isbn, configuration.getNumBookCopiesToBuy()));
 		}
 		
 		bookStore.buyBooks(bookCopyToBuy);
