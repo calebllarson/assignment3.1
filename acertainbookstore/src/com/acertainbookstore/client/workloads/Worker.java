@@ -195,7 +195,7 @@ n		of found in the list returned by getBooks. */
 			isbns.add(b.getISBN());
 		}
 	
-		Set<Integer> toBuyIsbn = configuration.getBookSetGenerator().sampleFromSetOfISBNs(isbns, configuration.getNumEditorPicksToGet()); // I'm not sure if this parameter is correct. 
+		Set<Integer> toBuyIsbn = configuration.getBookSetGenerator().sampleFromSetOfISBNs(isbns, configuration.getNumBooksToBuy()); // I'm not sure if this parameter is correct. 
 		Set<BookCopy> bookCopyToBuy = new HashSet<BookCopy>();
 		
 		for (Integer isbn: toBuyIsbn){
