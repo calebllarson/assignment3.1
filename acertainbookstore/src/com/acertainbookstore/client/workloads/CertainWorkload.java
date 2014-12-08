@@ -34,12 +34,26 @@ public class CertainWorkload {
 
 	/**
 	 * @param args
+	 * @throws Exception 
 	 */
 	
 	public static void main(String[] args) throws Exception {
-		int numConcurrentWorkloadThreads = 5;
+		//if non local test you have to run this, but NOTE every time restart the server
+		// also you have to manually increase the parameter and switch the boolean to false
+		// in the configuration adjust warmup to 100, actual runs to 200
+		//execution(5);
+		
+		//use this if local test
+		for(int i = 50; i<=2000; i = i +50){
+			execution(i);
+		}
+	}
+	
+
+	public static void execution(int clientNumber) throws Exception {
+		int numConcurrentWorkloadThreads = clientNumber;
 		String serverAddress = "http://localhost:8081";
-		boolean localTest = false;
+		boolean localTest = true;
 		List<WorkerRunResult> workerRunResults = new ArrayList<WorkerRunResult>();
 		List<Future<WorkerRunResult>> runResults = new ArrayList<Future<WorkerRunResult>>();
 
@@ -91,7 +105,6 @@ public class CertainWorkload {
 
 		reportMetric(workerRunResults);
 	}
-
 	/**
 	 * Computes the metrics and prints them
 	 * 
@@ -110,9 +123,9 @@ public class CertainWorkload {
 		
 		double latency = totalTime/workerRunResults.size(); // latency = average time to generate a response
 		double throughput = totalSuccessfulInteractions/totalTime; // throughput = average successful interactions per time period
-		System.out.println("Please notice, the time is in ns! Factor 1ns = 1,0*10^-9 s");
-		System.out.println("total time "+totalTime);
-		System.out.println("totalSuccessfulInteractions" + totalSuccessfulInteractions);
+		//System.out.println("Please notice, the time is in ns! Factor 1ns = 1,0*10^-9 s");
+		//System.out.println("total time "+totalTime);
+		//System.out.println("totalSuccessfulInteractions" + totalSuccessfulInteractions);
 		System.out.println("workerRundResults "+workerRunResults.size());
 		System.out.println("Latency "+latency);
 		System.out.println("Throughput "+throughput);
@@ -140,15 +153,15 @@ public class CertainWorkload {
 				"JK Unit", (float) 10, 100, 0, 0, 0, false);
 		booksInStock.add(jkUnit);
 		
-		StockBook interstellar =  new ImmutableStockBook(3044562, "Intetstellar",
+		StockBook interstellar =  new ImmutableStockBook(3044566, "Intetstellar",
 				"So great", (float) 10, 100, 0, 0, 0, false);
 		booksInStock.add(interstellar);
 		
-		StockBook blahBook =  new ImmutableStockBook(3044563, "Blah",
+		StockBook blahBook =  new ImmutableStockBook(3044567, "Blah",
 				"Blah Author", (float) 10, 100, 0, 0, 0, false);
 		booksInStock.add(blahBook);
 		
-		StockBook longTitleBook =  new ImmutableStockBook(3044563, "This Book Has a Really Really Long Title For Testing Purposes and Such",
+		StockBook longTitleBook =  new ImmutableStockBook(3044599, "This Book Has a Really Really Long Title For Testing Purposes and Such",
 				"Blah Author", (float) 10, 300, 0, 0, 0, false);
 		booksInStock.add(longTitleBook);
 
