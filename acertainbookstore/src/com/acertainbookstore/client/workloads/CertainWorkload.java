@@ -41,10 +41,10 @@ public class CertainWorkload {
 		//if non local test you have to run this, but NOTE every time restart the server
 		// also you have to manually increase the parameter and switch the boolean to false
 		// in the configuration adjust warmup to 100, actual runs to 200
-		//execution(5);
+		//execution(10);
 		
 		//use this if local test
-		for(int i = 50; i<=2000; i = i +50){
+		for(int i = 10; i<=200; i = i +10){
 			execution(i);
 		}
 	}
