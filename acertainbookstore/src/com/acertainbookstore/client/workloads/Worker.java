@@ -3,7 +3,6 @@
  */
 package com.acertainbookstore.client.workloads;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -116,7 +115,7 @@ public class Worker implements Callable<WorkerRunResult> {
 		//The list of randomly created set of books.
 		Set<ImmutableStockBook> nextSetOfStockBooks = configuration.getBookSetGenerator().nextSetOfStockBooks(configuration.getStockManager(), configuration.getNumBooksToAdd());
 		
-		// The boocks which must be added. 
+		// The books which must be added. 
 		Set<StockBook> toBeAdded = new HashSet<StockBook>(); 
 		
 		/* This for loop is implementing It then checks if the set of ISBNs is in the
@@ -141,8 +140,7 @@ n		of found in the list returned by getBooks. */
 	 * 
 	 * 
 	 */
-	
-	
+
 	private void runFrequentStockManagerInteraction(int k, StockManager stockManager) throws BookStoreException {
 		
 		List<StockBook> allStockBooks = stockManager.getBooks();
@@ -155,7 +153,7 @@ n		of found in the list returned by getBooks. */
 				return o1.getNumCopies()-o2.getNumCopies();
 			}
 		});
-		Set<StockBook> toHaveCopiesAdded = new HashSet<StockBook>(); // holds books with k lowerst copies
+		Set<StockBook> toHaveCopiesAdded = new HashSet<StockBook>(); // holds books with k lowest copies
 		
 		// select the k books with smallest quantities in stock, add it to the toHaveCopiesAdded list
 		
@@ -179,13 +177,7 @@ n		of found in the list returned by getBooks. */
 	 * 
 	 * @throws BookStoreException
 	 */
-	
-	/* I'm a little confused about this method because getEdirotPicks requires a number
-	 * paramter which I assume is configuration.getNumEditorPicksToGet(), but then getting 
-	 * a subset using sampleFromSetOfISBNS request another number parameter. I don't know 
-	 * what that parameter is.
-	 */
-	
+		
 	private void runFrequentBookStoreInteraction(BookStore bookStore) throws BookStoreException {
 		
 		Set<Integer> isbns = new HashSet<Integer>();
@@ -195,7 +187,7 @@ n		of found in the list returned by getBooks. */
 			isbns.add(b.getISBN());
 		}
 	
-		Set<Integer> toBuyIsbn = configuration.getBookSetGenerator().sampleFromSetOfISBNs(isbns, configuration.getNumBooksToBuy()); // I'm not sure if this parameter is correct. 
+		Set<Integer> toBuyIsbn = configuration.getBookSetGenerator().sampleFromSetOfISBNs(isbns, configuration.getNumBooksToBuy()); 
 		Set<BookCopy> bookCopyToBuy = new HashSet<BookCopy>();
 		
 		for (Integer isbn: toBuyIsbn){

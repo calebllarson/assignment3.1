@@ -126,9 +126,9 @@ public class CertainWorkload {
 		//System.out.println("Please notice, the time is in ns! Factor 1ns = 1,0*10^-9 s");
 		//System.out.println("total time "+totalTime);
 		//System.out.println("totalSuccessfulInteractions" + totalSuccessfulInteractions);
-		System.out.println("workerRundResults "+workerRunResults.size());
-		System.out.println("Latency "+latency);
-		System.out.println("Throughput "+throughput);
+		System.out.println("workerRundResults: "+workerRunResults.size());
+		System.out.println("Latency: "+latency);
+		System.out.println("Throughput: "+throughput);
 	}
 	
 
@@ -165,7 +165,6 @@ public class CertainWorkload {
 				"Blah Author", (float) 10, 300, 0, 0, 0, false);
 		booksInStock.add(longTitleBook);
 
-		
 		stockManager.addBooks(booksInStock);
 	}
 }

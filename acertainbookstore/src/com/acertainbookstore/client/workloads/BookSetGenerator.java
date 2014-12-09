@@ -35,7 +35,6 @@ public class BookSetGenerator {
 		
 		/*  Set are not ordered so the first num will be random.
 		 *  This for loop stops adding to the return set once i == the number desired. 
-		 * 
 		 */
 			
 		for (Integer isbn: isbns){ 
@@ -74,8 +73,8 @@ public class BookSetGenerator {
 		}
 		
 		for (int i = 0; i < num-1; i++){
-			randomStockBooks.add((ImmutableStockBook) allStockBooks.get(i));
 			
+			randomStockBooks.add((ImmutableStockBook) allStockBooks.get(i));
 		}
 		
 		return randomStockBooks;
